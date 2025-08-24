@@ -1,0 +1,19 @@
+---
+const delay = () => new Promise((resolve) => setTimeout(resolve, 5000));
+
+let isLoading = true;
+await delay();
+isLoading = false;
+---
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Loading Page</title>
+  </head>
+  <body>
+    {isLoading ? <p>Loading...</p> : <p>Data fetched!</p>}
+  </body>
+</html>

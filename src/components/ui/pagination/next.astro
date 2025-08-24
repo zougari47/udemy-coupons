@@ -1,0 +1,22 @@
+---
+import { ChevronRightIcon } from '@lucide/astro';
+import { cn } from '@/lib/utils';
+import PaginationLink from './link.astro';
+
+interface Props {
+  class?: string;
+  href: string;
+}
+
+const { class: className, href, ...props } = Astro.props;
+---
+
+<PaginationLink
+  href={href}
+  aria-label='Go to next page'
+  size='default'
+  class={cn('gap-1 px-2.5 sm:pr-2.5', className)}
+  {...props}>
+  <span class='hidden sm:block'>Next</span>
+  <ChevronRightIcon />
+</PaginationLink>

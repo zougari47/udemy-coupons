@@ -1,0 +1,42 @@
+---
+import Layout from '@/layouts/default.astro';
+import Error from "@/components/error.astro"
+import CourseDetails from '@/components/course-details.astro';
+import type { Course } from '@/types';
+
+const { slug } = Astro.params;
+const api = `${import.meta.env.API}/courses/slug/${encodeURIComponent(slug)}`;
+console.log({ api });
+
+const fetchCourse = async () => {
+  try {
+    const response = await fetch(api);
+    if (!response.ok) throw new Error('Network response was not ok');
+    const course = await response.json();
+    return course as Course;
+  } catch (error) {
+    console.error('Fetch error:', error);
+    return null;
+  }
+};
+
+
+const course: Course = await fetchCourse();
+---
+
+<Layout>
+  <div class='container my-5'>
+    {course ? <div>
+    <div class='grid grid-cols-1 lg:grid-cols-5'>
+      {/* Course Details */}
+      <main class='col-span-1 pr-2 lg:col-span-3'>
+        <CourseDetails course={course} />
+        <!-- <CountDownBtn url={course.url} /> -->
+      </main>
+
+      {/* related courses */}
+      <aside class='col-span-1 h-full w-full px-2 lg:col-span-2'></aside>
+    </div>
+    </div> : <Error />}
+  </div>
+</Layout>

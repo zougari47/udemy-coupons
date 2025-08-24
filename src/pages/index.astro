@@ -1,0 +1,18 @@
+---
+export const prerender = true
+
+import Layout from '@/layouts/default.astro';
+import Hero from '@/components/hero.astro';
+import LearningPerks from '@/components/learn-perks.astro';
+import TopCategories from '@/components/search-cat.astro';
+import SearchByLanguage from '@/components/search-lang.astro';
+---
+
+<Layout>  
+  <main class="container">
+    <Hero />
+    <LearningPerks />
+    <TopCategories />
+    <SearchByLanguage />
+  </main>
+</Layout>

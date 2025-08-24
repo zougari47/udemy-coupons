@@ -1,0 +1,57 @@
+---
+import Card from "@/components/ui/card/index.astro"
+import CardContent from "@/components/ui/card/content.astro"
+import { Categories } from '@/constants';
+import { Image } from 'astro:assets';
+import designImage from '@/assets/categories/design.jpg';
+import developmentImage from '@/assets/categories/development.jpg';
+import marketingImage from '@/assets/categories/marketing.jpg';
+import itSoftwareImage from '@/assets/categories/it-software.jpg';
+import businessImage from '@/assets/categories/business.jpg';
+import personalDevelopmentImage from '@/assets/categories/personal-development.jpg';
+import photographyVideoImage from '@/assets/categories/photography-video.jpg';
+import musicImage from '@/assets/categories/music.jpg';
+
+const categories = [
+  { slug: 'design', img: designImage },
+  { slug: 'development', img: developmentImage },
+  { slug: 'marketing', img: marketingImage },
+  { slug: 'it-software', img: itSoftwareImage },
+  { slug: 'business', img: businessImage },
+  { slug: 'personal-development', img: personalDevelopmentImage },
+  { slug: 'photography-video', img: photographyVideoImage },
+  { slug: 'music', img: musicImage },
+];
+---
+
+<div class="my-8">
+  <h1 class="mb-6 text-center text-4xl">Top Categories</h1>
+  <ul class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    {categories.map((category, i) => (
+      <li key={category.slug} class="">
+        <a href={`/courses?category=${category.slug}`}>
+          <Card class="p-0 group relative mx-auto w-fit overflow-hidden shadow-lg">
+            <div
+              data-odd={i % 2 === 0 ? '0 100%' : '0 0'}
+              class={`${i % 2 === 0 ? 'circle-even' : 'circle-odd'} group-hover:circle-full absolute flex h-full w-full items-center justify-center bg-foreground/60 text-background duration-500`}
+            >
+              <span class="text-2xl font-bold">
+                {Categories.find((cat) => cat.slug === category.slug)?.text}
+              </span>
+            </div>
+
+            <CardContent class="p-0">
+              <Image
+                src={category.img}
+                alt={category.slug}
+                width={300}
+                height={300}
+                class=""
+              />
+            </CardContent>
+          </Card>
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>

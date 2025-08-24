@@ -1,0 +1,50 @@
+---
+import Layout from '@/layouts/default.astro';
+import CourseCard from '@/components/course-card.astro';
+import Pagination from '@/components/pagination.astro';
+import type { CourseSummary } from '@/types.ts';
+
+const url = Astro.url;
+const searchParams = url.searchParams;
+const page = searchParams.get('page');
+console.log(Astro.url);
+
+const endpoint =
+  searchParams.get('category') || searchParams.get('language')
+    ? 'courses'
+    : 'featured-courses';
+const api = `${import.meta.env.API}/${endpoint}?${searchParams.toString()}`;
+
+const courses: CourseSummary[] = [];
+
+try {
+  const response = await fetch(api);
+  const result = await response.json();
+  courses.push(...result.courses);
+} catch (err) {
+  console.log('the error is', err);
+}
+---
+
+<Layout>
+  <div class='container'>
+    <div
+      class='my-8 grid grid-cols-1 gap-4 gap-y-8 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4'>
+      {
+        courses.length > 0 ? (
+          courses?.map((c: any) => <CourseCard course={c} />)
+        ) : (
+          <p class='min-h-[75vh] w-full text-center text-xl md:col-span-2 lg:col-span-3 2xl:col-span-4'>
+            No result found !!
+          </p>
+        )
+      }
+    </div>
+
+    <Pagination
+      page={page && !isNaN(Number(page)) ? Number(page) : 1}
+      pathname={url.pathname}
+      searchParams={searchParams}
+    />
+  </div>
+</Layout>

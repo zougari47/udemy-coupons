@@ -1,0 +1,32 @@
+---
+import { buttonVariants } from '@/components/ui/button/variants.ts';
+import { cn } from '@/lib/utils';
+
+interface Props {
+  class?: string;
+  isActive?: boolean;
+  size?: string;
+  href: string;
+}
+
+const {
+  class: className,
+  isActive,
+  size = 'icon',
+  href,
+  ...props
+} = Astro.props;
+---
+
+<a
+  href={href}
+  aria-current={isActive ? 'page' : undefined}
+  data-slot='pagination-link'
+  data-active={isActive}
+  class={cn(
+    buttonVariants({ variant: isActive ? 'outline' : 'ghost', size }),
+    className,
+  )}
+  {...props}>
+  <slot />
+</a>

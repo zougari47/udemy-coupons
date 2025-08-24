@@ -1,0 +1,39 @@
+---
+import { buttonVariants } from '@/components/ui/button/variants';
+
+const languages = [
+  'English',
+  'Arabic',
+  'Hindi',
+  'Spanish',
+  'Turkish',
+  'German',
+  'Urdu',
+  'Portuguese',
+  'Italian',
+  'French',
+  'Thai',
+  'Tamil',
+  'Russian',
+  'Japanese',
+  'Korean',
+];
+
+const buttonClasses = buttonVariants({ variant: 'outline', size: 'lg' });
+---
+
+<section class='my-8'>
+  <h2 class='mb-6 text-center text-4xl'>Search By Language</h2>
+
+  <ul class='flex flex-wrap justify-center gap-4'>
+    {
+      languages.map((lang) => (
+        <li key={lang}>
+          <a href={`/courses?language=${lang}`} class={buttonClasses}>
+            {lang}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

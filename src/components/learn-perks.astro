@@ -1,0 +1,47 @@
+---
+import learningGetsYou from '@/assets/learning-gets-you.png';
+import transformLife from '@/assets/transform-life-education.png';
+import saveMoney from '@/assets/save-money.png';
+import { Image } from 'astro:assets';
+
+const WHY_LEARN = [
+  {
+    img: learningGetsYou,
+    title: 'Learning that gets you',
+    description:
+      'Skills for your present (and your future). Get started with Udemy.',
+  },
+  {
+    img: transformLife,
+    title: 'Transform through education',
+    description:
+      'Learners around the world are launching new careers, advancing in their fields, and enriching their lives.',
+  },
+  {
+    img: saveMoney,
+    title: "It's free. start now!",
+    description:
+      'Give your career the much-anticipated taste of success without spending any money.',
+  },
+];
+---
+
+<ul class='my-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-4'>
+  {
+    WHY_LEARN.map((r) => (
+      <li class='rounded p-2 text-center' key={r.title}>
+        <Image
+          src={r.img}
+          width='400'
+          height='400'
+          alt='reason'
+          class='h-auto w-full'
+        />
+        <h1 class='text-2xl font-semibold tracking-tight transition-colors first:mt-0'>
+          {r.title}
+        </h1>
+        <p class='mt-6 leading-7'>{r.description}</p>
+      </li>
+    ))
+  }
+</ul>
