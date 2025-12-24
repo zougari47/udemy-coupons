@@ -13,6 +13,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.14.0",
   "dependencies": {
+    "@astrojs/vercel": "^8.2.6",
     "@lucide/astro": "^0.541.0",
     "@tailwindcss/vite": "^4.1.12",
     "astro": "^5.13.2",

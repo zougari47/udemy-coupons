@@ -1,5 +1,5 @@
 ---
-import Pagination from '@/components/ui/pagination/index.astro';
+import PPagination from '@/components/ui/pagination/index.astro';
 import PaginationContent from '@/components/ui/pagination/content.astro';
 import PaginationEllipsis from '@/components/ui/pagination/ellipsis.astro';
 import PaginationItem from '@/components/ui/pagination/item.astro';
@@ -16,18 +16,19 @@ interface Props {
 const { page, pathname, searchParams } = Astro.props;
 
 const getPageUrl = (pageNum: number) => {
-  searchParams.set('page', pageNum.toString());
-  return `${pathname}?${searchParams.toString()}`;
+  const sp = new URLSearchParams(searchParams);
+  sp.set('page', pageNum.toString());
+  return `${pathname}?${sp.toString()}`;
 };
 ---
 
-<Pagination class='mb-6'>
+<PPagination class='mb-6'>
   <PaginationContent>
     <PaginationItem>
       <PaginationPrevious href={page > 1 ? getPageUrl(page - 1) : '#'} />
     </PaginationItem>
     {
-      page > 1 && (
+      page > 2 && (
         <PaginationItem>
           <PaginationLink href={getPageUrl(1)}>1</PaginationLink>
         </PaginationItem>
@@ -62,4 +63,4 @@ const getPageUrl = (pageNum: number) => {
       <PaginationNext href={getPageUrl(page + 1)} />
     </PaginationItem>
   </PaginationContent>
-</Pagination>
+</PPagination>

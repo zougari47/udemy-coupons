@@ -6,8 +6,9 @@ import type { CourseSummary } from '@/types.ts';
 
 const url = Astro.url;
 const searchParams = url.searchParams;
-const page = searchParams.get('page');
-console.log(Astro.url);
+searchParams.set('sortBy', 'sale_start');
+const page = searchParams.get('page'); // to generate pagination
+console.log({ url, page });
 
 const endpoint =
   searchParams.get('category') || searchParams.get('language')
@@ -16,13 +17,26 @@ const endpoint =
 const api = `${import.meta.env.API}/${endpoint}?${searchParams.toString()}`;
 
 const courses: CourseSummary[] = [];
+console.log({ api });
 
 try {
-  const response = await fetch(api);
+  const response = await fetch(api, {
+    headers: {
+      'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      Accept: 'application/json',
+      Connection: 'keep-alive',
+    },
+  });
   const result = await response.json();
-  courses.push(...result.courses);
-} catch (err) {
-  console.log('the error is', err);
+
+  const data = result.items || result.courses || [];
+
+  const filteredData = data.filter((item: any) => item.type !== 'ad');
+
+  courses.push(...filteredData);
+} catch (error) {
+  console.error({ error });
 }
 ---
 

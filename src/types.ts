@@ -15,7 +15,7 @@ export interface CourseSummary {
   sale_start: string;
 }
 
-interface Course {
+export interface Course {
   id: number;
   name: string;
   description: string;
