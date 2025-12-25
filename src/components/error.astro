@@ -7,6 +7,7 @@ import CardDescription from '@/components/ui/card/description.astro';
 import CardContent from '@/components/ui/card/content.astro';
 import CardFooter from '@/components/ui/card/footer.astro';
 import { buttonVariants } from '@/components/ui/button/variants';
+import { cn } from '@/lib/utils';
 ---
 
 <div class='bg-background flex min-h-full items-center justify-center p-4'>
@@ -28,10 +29,16 @@ import { buttonVariants } from '@/components/ui/button/variants';
     </CardHeader>
     <CardContent>
       <CardFooter class='flex items-center justify-center gap-8'>
-        <a class={buttonVariants({ variant: 'outline', size: 'lg' })}
-          >Try again</a
+        <a
+          href='javascript:location.reload()'
+          class={cn(
+            buttonVariants({ size: 'lg', variant: 'outline' }),
+            'cursor-pointer',
+          )}>Try again</a
         >
-        <a class={buttonVariants({ size: 'lg' })}>Go home</a>
+        <a href='/' class={cn(buttonVariants({ size: 'lg' }), 'cursor-pointer')}
+          >Go home</a
+        >
       </CardFooter>
     </CardContent>
   </Card>

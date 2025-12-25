@@ -8,7 +8,6 @@ const url = Astro.url;
 const searchParams = url.searchParams;
 searchParams.set('sortBy', 'sale_start');
 const page = searchParams.get('page'); // to generate pagination
-console.log({ url, page });
 
 const endpoint =
   searchParams.get('category') || searchParams.get('language')
@@ -17,7 +16,6 @@ const endpoint =
 const api = `${import.meta.env.API}/${endpoint}?${searchParams.toString()}`;
 
 const courses: CourseSummary[] = [];
-console.log({ api });
 
 try {
   const response = await fetch(api, {

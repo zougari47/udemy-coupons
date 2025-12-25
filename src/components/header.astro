@@ -1,8 +1,9 @@
 ---
 import { buttonVariants } from '@/components/ui/button/variants';
+import { cn } from '@/lib/utils';
 ---
 
-<header class='border-b'>
+<header class='bg-background border-b'>
   <div class='container'>
     <nav class='flex items-center justify-between py-4'>
       <a href='/'>
@@ -28,7 +29,14 @@ import { buttonVariants } from '@/components/ui/button/variants';
           </a>
         </li>
         <li>
-          <a href='/courses' class={buttonVariants()}> Courses </a>
+          <a
+            href='/courses'
+            class={cn(
+              buttonVariants({ variant: 'outline' }),
+              '!border-primary',
+            )}>
+            Courses
+          </a>
         </li>
       </ul>
     </nav>

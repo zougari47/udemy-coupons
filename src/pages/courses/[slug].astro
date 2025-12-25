@@ -1,12 +1,13 @@
 ---
 import Layout from '@/layouts/default.astro';
-import Error from "@/components/error.astro"
+import ErrorCard from '@/components/error.astro';
 import CourseDetails from '@/components/course-details.astro';
 import type { Course } from '@/types';
+import { cn } from '@/lib/utils';
+import { buttonVariants } from '@/components/ui/button/variants';
 
 const { slug } = Astro.params;
 const api = `${import.meta.env.API}/courses/slug/${encodeURIComponent(slug)}`;
-console.log({ api });
 
 const fetchCourse = async () => {
   try {
@@ -20,23 +21,31 @@ const fetchCourse = async () => {
   }
 };
 
-
 const course: Course = await fetchCourse();
 ---
 
 <Layout>
   <div class='container my-5'>
-    {course ? <div>
-    <div class='grid grid-cols-1 lg:grid-cols-5'>
-      {/* Course Details */}
-      <main class='col-span-1 pr-2 lg:col-span-3'>
-        <CourseDetails course={course} />
-        <!-- <CountDownBtn url={course.url} /> -->
-      </main>
-
-      {/* related courses */}
-      <aside class='col-span-1 h-full w-full px-2 lg:col-span-2'></aside>
-    </div>
-    </div> : <Error />}
+    {
+      course ? (
+        <div>
+          <main class='mx-auto max-w-2xl'>
+            <CourseDetails course={course} />
+            <a
+              href={course.url}
+              target='_blank'
+              rel='noopener noreferrer'
+              class={cn(
+                buttonVariants({ size: 'lg' }),
+                'w-full cursor-pointer justify-center font-semibold',
+              )}>
+              Get Coupons
+            </a>
+          </main>
+        </div>
+      ) : (
+        <ErrorCard />
+      )
+    }
   </div>
 </Layout>
