@@ -2,7 +2,7 @@
 import Layout from '@/layouts/default.astro';
 import CourseCard from '@/components/course-card.astro';
 import Pagination from '@/components/pagination.astro';
-import type { CourseSummary } from '@/types.ts';
+import type { CourseSummary } from '@/types';
 
 const url = Astro.url;
 const searchParams = url.searchParams;
@@ -16,6 +16,10 @@ const endpoint =
 const api = `${import.meta.env.API}/${endpoint}?${searchParams.toString()}`;
 
 const courses: CourseSummary[] = [];
+
+// seo
+const pageNum = Number(page) || 1;
+const dynamicTitle = `Udemy Coupons 100% Off For Free${pageNum > 1 ? ` - Page ${pageNum}` : ''}`;
 
 try {
   const response = await fetch(api, {
@@ -38,7 +42,7 @@ try {
 }
 ---
 
-<Layout>
+<Layout title={dynamicTitle}>
   <div class='container'>
     <div
       class='my-8 grid grid-cols-1 gap-4 gap-y-8 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4'>
